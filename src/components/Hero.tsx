@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import profileImage from '../assets/images/foto-3.jpg';
+import SplitText from '../blocks/TextAnimations/SplitText/SplitText';
+import ShinyText from '../blocks/TextAnimations/ShinyText/ShinyText';
+import Magnet from '../blocks/Animations/Magnet/Magnet';
+import AnimatedContent from '../blocks/Animations/AnimatedContent/AnimatedContent';
+import SplashCursor from '../blocks/Animations/SplashCursor/SplashCursor';
 
 const Hero: React.FC = () => {
   const containerVariants = {
@@ -47,21 +52,25 @@ const Hero: React.FC = () => {
         initial="hidden"
         animate="visible"
       >
-        <motion.p 
-          className="text-xl text-gray-600 dark:text-gray-400"
+        <motion.div 
+          className="text-xl"
           variants={itemVariants}
         >
-          Hey, I'm Baruna 👋
-        </motion.p>
+          <ShinyText 
+            text="Hey, I'm Baruna 👋" 
+            className="text-gray-600 dark:text-gray-400"
+            speed={3}
+          />
+        </motion.div>
         
-        <motion.h1 
+        <motion.div 
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mt-2 leading-none dark:text-white"
           variants={itemVariants}
         >
-          <span className="gradient-text">Frontend</span>
-          <br />
-          Developer
-        </motion.h1>
+          <span className="gradient-text">
+            Frontend Developer
+          </span>
+        </motion.div>
         
         <motion.p 
           className="mt-6 text-xl text-gray-500 dark:text-gray-300 max-w-md"
@@ -74,29 +83,34 @@ const Hero: React.FC = () => {
           className="mt-8 flex items-center space-x-4"
           variants={itemVariants}
         >
-          <a
-            href="https://www.linkedin.com/in/barunapasha/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-white font-bold py-3 px-8 rounded-lg"
-          >
-            Get In Touch
-          </a>
-          <Link
-            to="/projects"
-            className="bg-white border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 font-bold py-3 px-8 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all hover-lift"
-          >
-            Browse Projects
-          </Link>
+          <Magnet magnetStrength={0.3} padding={50}>
+            <a
+              href="https://www.linkedin.com/in/barunapasha/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-white font-bold py-3 px-8 rounded-lg"
+            >
+              Get In Touch
+            </a>
+          </Magnet>
+          <Magnet magnetStrength={0.3} padding={50}>
+            <Link
+              to="/projects"
+              className="bg-white border border-gray-300 text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 font-bold py-3 px-8 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all hover-lift"
+            >
+              Browse Projects
+            </Link>
+          </Magnet>
         </motion.div>
       </motion.div>
       
-      <motion.div 
-        className="md:w-1/2 mb-12 md:mb-0 flex justify-center md:justify-end items-center"
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <AnimatedContent distance={80} direction="horizontal" duration={1.0}>
+        <motion.div 
+          className="md:w-1/2 mb-12 md:mb-0 flex justify-center md:justify-start items-center md:ml-auto"
+          variants={imageVariants}
+          initial="hidden"
+          animate="visible"
+        >
         <div className="relative">
           <motion.div 
             className="absolute inset-0 bg-purple-200 dark:bg-purple-900 rounded-full transform -translate-x-4 -translate-y-4"
@@ -114,11 +128,12 @@ const Hero: React.FC = () => {
           <motion.img
             src={profileImage}
             alt="Baruna"
-            className="profile-image rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px] xl:w-[480px] xl:h-[480px] object-cover border-4 border-white dark:border-gray-800 relative z-10"
+            className="profile-image rounded-full w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px] xl:w-[480px] xl:h-[480px] object-cover shadow-2xl relative z-10"
             style={{
-              borderColor: 'rgba(255, 255, 255, 0.5)',
-              borderWidth: '12px',
-              boxShadow: '0 0 0 12px #9c66ff inset, 0 0 0 100vw #fff inset',
+              aspectRatio: '1 / 1',
+              objectPosition: 'center center',
+              border: '8px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)'
             }}
             animate={{
               y: [0, -20, 0],
@@ -130,7 +145,8 @@ const Hero: React.FC = () => {
             }}
           />
         </div>
-      </motion.div>
+        </motion.div>
+      </AnimatedContent>
     </main>
   );
 };

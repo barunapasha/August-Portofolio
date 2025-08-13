@@ -2,6 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Instagram, Github, Linkedin, MessageCircle, Mail, Phone } from 'lucide-react';
+import AnimatedContent from '../blocks/Animations/AnimatedContent/AnimatedContent';
+import Magnet from '../blocks/Animations/Magnet/Magnet';
+import ShinyText from '../blocks/TextAnimations/ShinyText/ShinyText';
 
 const Footer: React.FC = () => {
   const socialLinks = [
@@ -72,8 +75,9 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 mt-32">
-      <div className="container mx-auto px-8 py-16">
+    <AnimatedContent distance={50} direction="vertical" duration={0.8}>
+      <footer className="bg-gray-50 dark:bg-gray-900 mt-32">
+        <div className="container mx-auto px-8 py-16">
         <motion.div
           className="grid md:grid-cols-4 gap-8"
           variants={containerVariants}
@@ -83,9 +87,13 @@ const Footer: React.FC = () => {
         >
           {/* Brand Section */}
           <motion.div variants={itemVariants} className="md:col-span-2">
-            <h3 className="text-2xl font-bold dark:text-white mb-4">
-              Baruna Pasha
-            </h3>
+            <div className="text-2xl font-bold mb-4">
+              <ShinyText 
+                text="Baruna Pasha" 
+                className="dark:text-white"
+                speed={4}
+              />
+            </div>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
               A passionate developer creating amazing digital experiences with modern technologies.
             </p>
@@ -95,17 +103,18 @@ const Footer: React.FC = () => {
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
                 return (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-2 rounded-full bg-white dark:bg-gray-800 shadow-md transition-all duration-300 ${social.color}`}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <IconComponent className="h-5 w-5" />
-                  </motion.a>
+                  <Magnet key={social.name} magnetStrength={0.2} padding={20}>
+                    <motion.a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-2 rounded-full bg-white dark:bg-gray-800 shadow-md transition-all duration-300 ${social.color}`}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <IconComponent className="h-5 w-5" />
+                    </motion.a>
+                  </Magnet>
                 );
               })}
             </div>
@@ -140,13 +149,15 @@ const Footer: React.FC = () => {
                 const IconComponent = contact.icon;
                 return (
                   <li key={index}>
-                    <a
-                      href={contact.href}
-                      className="flex items-center text-gray-600 dark:text-gray-400 hover:text-brand-purple dark:hover:text-brand-purple transition-colors duration-300"
-                    >
-                      <IconComponent className="h-4 w-4 mr-2" />
-                      <span className="text-sm">{contact.text}</span>
-                    </a>
+                    <Magnet magnetStrength={0.15} padding={15}>
+                      <a
+                        href={contact.href}
+                        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-brand-purple dark:hover:text-brand-purple transition-colors duration-300"
+                      >
+                        <IconComponent className="h-4 w-4 mr-2" />
+                        <span className="text-sm">{contact.text}</span>
+                      </a>
+                    </Magnet>
                   </li>
                 );
               })}
@@ -173,8 +184,9 @@ const Footer: React.FC = () => {
             Made with 💜 using React & TailwindCSS
           </motion.p>
         </motion.div>
-      </div>
-    </footer>
+        </div>
+      </footer>
+    </AnimatedContent>
   );
 };
 

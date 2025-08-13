@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Calendar, Tag } from 'lucide-react';
+import AnimatedContent from '../blocks/Animations/AnimatedContent/AnimatedContent';
+import Magnet from '../blocks/Animations/Magnet/Magnet';
+import SplitText from '../blocks/TextAnimations/SplitText/SplitText';
 import nongkiyukImage from '../assets/images/nongkiyuk.png';
 import uperfoodImage from '../assets/images/uperfood.png';
 import portfolioImage from '../assets/images/foto-3.jpg';
@@ -125,9 +128,17 @@ const ProjectsPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-6xl font-black dark:text-white mb-4">
-            My Projects.
-          </h1>
+          <div className="text-6xl font-black dark:text-white mb-4">
+            <SplitText 
+              text="My Projects."
+              className="dark:text-white"
+              delay={80}
+              duration={0.6}
+              splitType="chars"
+              from={{ opacity: 0, y: 30, rotateX: -45 }}
+              to={{ opacity: 1, y: 0, rotateX: 0 }}
+            />
+          </div>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             A collection of projects that showcase my skills and passion for creating amazing digital experiences.
           </p>
@@ -141,11 +152,17 @@ const ProjectsPage: React.FC = () => {
           animate="visible"
         >
           {projects.map((project, index) => (
-            <motion.div
+            <AnimatedContent 
               key={project.id}
-              variants={projectVariants}
-              className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}
+              distance={80} 
+              direction="vertical" 
+              duration={0.8} 
+              delay={index * 0.1}
             >
+              <motion.div
+                variants={projectVariants}
+                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}
+              >
               {/* Project Image */}
               <motion.div 
                 className="lg:w-1/2"
@@ -198,34 +215,39 @@ const ProjectsPage: React.FC = () => {
                 {/* Action Buttons */}
                 <div className="flex gap-4">
                   {project.liveUrl && (
-                    <motion.a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 bg-brand-purple text-white rounded-lg hover:bg-brand-purple/90 transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Live Demo
-                    </motion.a>
+                    <Magnet magnetStrength={0.3} padding={40}>
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-6 py-3 bg-brand-purple text-white rounded-lg hover:bg-brand-purple/90 transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Live Demo
+                      </motion.a>
+                    </Magnet>
                   )}
                   {project.githubUrl && (
-                    <motion.a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:border-brand-purple hover:text-brand-purple dark:hover:text-brand-purple transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Github className="h-4 w-4" />
-                      View Code
-                    </motion.a>
+                    <Magnet magnetStrength={0.3} padding={40}>
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:border-brand-purple hover:text-brand-purple dark:hover:text-brand-purple transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Github className="h-4 w-4" />
+                        View Code
+                      </motion.a>
+                    </Magnet>
                   )}
                 </div>
               </div>
             </motion.div>
+            </AnimatedContent>
           ))}
         </motion.div>
       </div>
